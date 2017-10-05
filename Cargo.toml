@@ -1,0 +1,6 @@
+[package]
+name = "RLS"
+version = "0.1.0"
+authors = ["Thibault Huyet <thibault.huyet@gmail.com>"]
+
+[dependencies]
