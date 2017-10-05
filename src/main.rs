@@ -28,9 +28,8 @@ fn main()
     {
     	if let Ok(entry) = entry
     	{
-    		println!("{:?}", entry.path());
+    		let file = entry.file_name();
+    		println!("{}", file.to_str().unwrap());
     	}
     }
-
-    println!("{:?}", path);
 	}
