@@ -24,6 +24,13 @@ fn main()
 
     let path = PathBuf::from(&args[1]);
 
+    for entry in path.read_dir().expect("Read_dir call failed")
+    {
+    	if let Ok(entry) = entry
+    	{
+    		println!("{:?}", entry.path());
+    	}
+    }
 
     println!("{:?}", path);
 	}
