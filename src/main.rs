@@ -7,21 +7,30 @@ fn main()
 	    let config = parse_config(&args);
 	    // let path = PathBuf::from(&config[0]);
 
-	    for entry in config.path.read_dir().expect("Read_dir call failed")
-	    {
-	    	if let Ok(entry) = entry
-	    	{
-	    		let file = entry.file_name();
-	    		println!("{}", file.to_str().unwrap());
-	    	}
-	    }
+	    config.print_directory();
 	}
 
-// Potential config data type
+
+// config data type
 struct Config
 {
 	path: PathBuf,
 	options: Vec<String>
+}
+
+impl Config
+{
+	pub fn print_directory(&self)
+	{
+		for entry in self.path.read_dir().expect("Could not read")
+		{
+			if let Ok(entry) = entry
+			{
+				let file = entry.file_name();
+				println!("{}", file.to_str().unwrap());
+			}
+		}
+	}
 }
 
 // Possible inputs should be:
@@ -55,6 +64,7 @@ fn parse_config(args: &[String]) -> Config
 				let ts = args[1].to_string();
 				path.push(&ts);
 			},
+
 		// For now, I'm just testing with 2 inputs
 		// Eventually I will find some way to
 		// 
