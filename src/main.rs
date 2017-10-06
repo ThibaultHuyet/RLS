@@ -2,13 +2,11 @@ use std::env;
 use std::path::PathBuf;
 
 fn main()
-	{
-	    let args: Vec<String> = env::args().collect();
-	    let config = parse_config(&args);
-	    // let path = PathBuf::from(&config[0]);
-
-	    config.print_directory();
-	}
+{
+    let args: Vec<String> = env::args().collect();
+    let config = parse_config(&args);
+    config.print_directory();
+}
 
 
 // config data type
@@ -22,14 +20,24 @@ impl Config
 {
 	pub fn print_directory(&self)
 	{
+		// i is used for formatting
+		let mut i = 0;
+
 		for entry in self.path.read_dir().expect("Could not read")
 		{
 			if let Ok(entry) = entry
 			{
 				let file = entry.file_name();
-				println!("{}", file.to_str().unwrap());
+				print!("{}  ", file.to_str().unwrap());
+			}
+			// Ensure that only 6 lines are printed on a row
+			i += 1;
+			if i % 6 == 0
+			{
+				println!("");
 			}
 		}
+		println!("");
 	}
 }
 
